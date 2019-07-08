@@ -9,7 +9,7 @@ namespace Phema.Named
 		/// <summary>
 		/// Get named service of type <typeparamref name="TService" />
 		/// </summary>
-		public static TService GetNamedService<TService>(this IServiceProvider serviceProvider, string name)
+		public static TService GetService<TService>(this IServiceProvider serviceProvider, string name)
 			where TService : class
 		{
 			var options = serviceProvider.GetRequiredService<IOptions<NamedOptions>>().Value;
@@ -22,7 +22,7 @@ namespace Phema.Named
 		/// <summary>
 		/// Get required named service of type <typeparamref name="TService" />
 		/// </summary>
-		public static TService GetRequiredNamedService<TService>(this IServiceProvider serviceProvider, string name)
+		public static TService GetRequiredService<TService>(this IServiceProvider serviceProvider, string name)
 			where TService : class
 		{
 			var options = serviceProvider.GetRequiredService<IOptions<NamedOptions>>().Value;

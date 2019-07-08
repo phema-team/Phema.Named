@@ -5,31 +5,15 @@ using Xunit;
 
 namespace Phema.Named.Tests
 {
-	public interface IDependency
-	{
-	}
-
-	public class DependencyA : IDependency
-	{
-	}
-	
-	public class DependencyB : IDependency
-	{
-	}
-
-	public class DependencyC : IDependency
-	{
-	}
-	
 	public class NamedDependencyTests
 	{
 		[Fact]
 		public void ServiceCollectionDependencies()
 		{
 			var services = new ServiceCollection()
-				.AddNamedSingleton<IDependency, DependencyA>("A")
-				.AddNamedTransient<IDependency, DependencyB>("B")
-				.AddNamedScoped<IDependency, DependencyC>("C");
+				.AddSingleton<IDependency, DependencyA>("A")
+				.AddTransient<IDependency, DependencyB>("B")
+				.AddScoped<IDependency, DependencyC>("C");
 
 			Assert.Equal(3, services.Count(s => s.ServiceType == typeof(IDependency)));
 			var dependencyA = Assert.Single(services.Where(s => s.ServiceType == typeof(DependencyA)));
@@ -46,26 +30,26 @@ namespace Phema.Named.Tests
 		public void RegisterResolve()
 		{
 			var services = new ServiceCollection()
-				.AddNamedSingleton<IDependency, DependencyA>("A")
-				.AddNamedSingleton<IDependency, DependencyB>("B")
-				.AddNamedSingleton<IDependency, DependencyC>("C");
+				.AddSingleton<IDependency, DependencyA>("A")
+				.AddSingleton<IDependency, DependencyB>("B")
+				.AddSingleton<IDependency, DependencyC>("C");
 
 			var provider = services.BuildServiceProvider();
 
 			Assert.Equal(3, provider.GetServices<IDependency>().Count());
 
-			Assert.IsType<DependencyA>(provider.GetRequiredNamedService<IDependency>("A"));
-			Assert.IsType<DependencyB>(provider.GetRequiredNamedService<IDependency>("B"));
+			Assert.IsType<DependencyA>(provider.GetRequiredService<IDependency>("A"));
+			Assert.IsType<DependencyB>(provider.GetRequiredService<IDependency>("B"));
 
-			Assert.IsType<DependencyC>(provider.GetNamedService<IDependency>("C"));
-			Assert.Null(provider.GetNamedService<IDependency>("D"));
+			Assert.IsType<DependencyC>(provider.GetService<IDependency>("C"));
+			Assert.Null(provider.GetService<IDependency>("D"));
 		}
 
 		[Fact]
 		public void PopulateOptions()
 		{
 			var services = new ServiceCollection()
-				.AddNamedSingleton<IDependency, DependencyA>("A");
+				.AddSingleton<IDependency, DependencyA>("A");
 
 			var provider = services.BuildServiceProvider();
 

@@ -8,7 +8,7 @@ namespace Phema.Named
 		/// Adds named service of the type specified in <typeparamref name="TService" /> with an
 		/// implementation type specified in <typeparamref name="TImplementation" />
 		/// </summary>
-		public static IServiceCollection AddNamed<TService, TImplementation>(
+		public static IServiceCollection Add<TService, TImplementation>(
 			this IServiceCollection services,
 			ServiceLifetime serviceLifetime,
 			string name)
@@ -36,39 +36,39 @@ namespace Phema.Named
 		/// Adds singleton named service of the type specified in <typeparamref name="TService" /> with an
 		/// implementation type specified in <typeparamref name="TImplementation" />
 		/// </summary>
-		public static IServiceCollection AddNamedSingleton<TService, TImplementation>(
+		public static IServiceCollection AddSingleton<TService, TImplementation>(
 			this IServiceCollection services,
 			string name)
 			where TService : class
 			where TImplementation : class, TService
 		{
-			return services.AddNamed<TService, TImplementation>(ServiceLifetime.Singleton, name);
+			return services.Add<TService, TImplementation>(ServiceLifetime.Singleton, name);
 		}
 
 		/// <summary>
 		/// Adds transient named service of the type specified in <typeparamref name="TService" /> with an
 		/// implementation type specified in <typeparamref name="TImplementation" />
 		/// </summary>
-		public static IServiceCollection AddNamedTransient<TService, TImplementation>(
+		public static IServiceCollection AddTransient<TService, TImplementation>(
 			this IServiceCollection services,
 			string name)
 			where TService : class
 			where TImplementation : class, TService
 		{
-			return services.AddNamed<TService, TImplementation>(ServiceLifetime.Transient, name);
+			return services.Add<TService, TImplementation>(ServiceLifetime.Transient, name);
 		}
 
 		/// <summary>
 		/// Adds scoped named service of the type specified in <typeparamref name="TService" /> with an
 		/// implementation type specified in <typeparamref name="TImplementation" />
 		/// </summary>
-		public static IServiceCollection AddNamedScoped<TService, TImplementation>(
+		public static IServiceCollection AddScoped<TService, TImplementation>(
 			this IServiceCollection services,
 			string name)
 			where TService : class
 			where TImplementation : class, TService
 		{
-			return services.AddNamed<TService, TImplementation>(ServiceLifetime.Scoped, name);
+			return services.Add<TService, TImplementation>(ServiceLifetime.Scoped, name);
 		}
 	}
 }

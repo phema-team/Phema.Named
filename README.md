@@ -5,11 +5,11 @@ Register and resolve named dependencies with `Microsoft.Extensions.DepepdencyInj
 ## Usage
 
 ```csharp
-services.AddNamedSingleton<IDepepdency, DepepdencyA>("A")
-  .AddNamedTransient<IDepepdency, DepepdencyB>("B");
+services.AddSingleton<IDepepdency, DepepdencyA>("A")
+  .AddTransient<IDepepdency, DepepdencyB>("B");
 
-provider.GetNamedService<IDependency>("A");
-provider.GetRequiredNamedService<IDependency>("B");
+provider.GetService<IDependency>("A");
+provider.GetRequiredService<IDependency>("B");
 ```
 
 ## Installation [![Nuget](https://img.shields.io/nuget/v/Phema.Named.svg)](https://www.nuget.org/packages/Phema.Named)
